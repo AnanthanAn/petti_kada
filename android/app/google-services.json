@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "458567056685",
+    "firebase_url": "https://petti-kada.firebaseio.com",
+    "project_id": "petti-kada",
+    "storage_bucket": "petti-kada.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458567056685:android:d1e8add9be6698bf1567a4",
+        "android_client_info": {
+          "package_name": "com.ananthan.petti_kada"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458567056685-169pl2c431i0f1kn5o1asnep9f517srb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLiGmO52Qj6IvpJuFolrN1KNkBu-zIPB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458567056685-169pl2c431i0f1kn5o1asnep9f517srb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
