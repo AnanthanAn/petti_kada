@@ -13,19 +13,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          GestureDetector(
-            child: Icon(Icons.input),
-            onTap: () {},
-          )
-        ],
-        title: Text(
-          'ShopLift',
-          style: kTitleStyles
-        ),
-        backgroundColor: Colors.green,
-      ),drawer: CustomDrawer(),
+      appBar: setDefaultAppBar(),
+      drawer: CustomDrawer(),
       body: SafeArea(
         child: ListView(
           children: <Widget>[

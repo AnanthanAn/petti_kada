@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petti_kada/constants/constants.dart';
+import 'package:petti_kada/screens/products_screen.dart';
 class CatCard extends StatelessWidget {
   final String imageURL ;
   final String titleLabel ;
@@ -17,7 +18,9 @@ class CatCard extends StatelessWidget {
           height: 150,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: InkWell(onTap: (){},
+            child: InkWell(onTap: (){
+              Navigator.pushNamed(context, ProductsScreen.routeName);
+            },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
