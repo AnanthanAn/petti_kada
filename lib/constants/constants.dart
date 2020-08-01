@@ -1,6 +1,8 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:petti_kada/providers/cart_provider.dart';
+import 'package:petti_kada/widgets/badge.dart';
+import 'package:provider/provider.dart';
 
 const kButtonTextStyle = TextStyle(
     color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Montserrat');
@@ -18,13 +20,14 @@ AppBar setDefaultAppBar() {
     actions: <Widget>[
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Badge(
-          child: Icon(Icons.shopping_cart),
-          badgeContent: Text(
-            '5',
-            style: TextStyle(color: Colors.green),
+        child: Consumer<CartProvider>(
+          builder: (ctx, cart, _) => Badge(
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart), onPressed: () {  },
+            ),
+            value: cart.items.length.toString(),
+            color: Colors.lightGreenAccent,
           ),
-          badgeColor: Colors.white,
         ),
       ),
     ],

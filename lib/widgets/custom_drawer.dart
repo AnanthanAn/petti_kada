@@ -16,7 +16,7 @@ class CustomDrawer extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.home),
-            title: Text('Orders'),
+            title: Text('Home'),
             onTap: () {},
           ),
           ListTile(
