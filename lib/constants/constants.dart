@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:petti_kada/providers/cart_provider.dart';
-import 'package:petti_kada/widgets/badge.dart';
+import 'package:petti_kada/screens/cart_screen.dart';
+import '../providers/cart_provider.dart';
+import '../widgets/badge.dart';
 import 'package:provider/provider.dart';
 
 const kButtonTextStyle = TextStyle(
@@ -15,19 +16,19 @@ const kHeaderStyles = TextStyle(
 
 TextStyle kTitleStyles = GoogleFonts.kronaOne(color: Colors.white);
 
-AppBar setDefaultAppBar() {
+AppBar setDefaultAppBar(BuildContext context) {
   return AppBar(
     actions: <Widget>[
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<CartProvider>(
-          builder: (ctx, cart, _) => Badge(
-            child: IconButton(
-              icon: Icon(Icons.shopping_cart), onPressed: () {  },
-            ),
-            value: cart.items.length.toString(),
-            color: Colors.lightGreenAccent,
+      Consumer<CartProvider>(
+        builder: (ctx, cart, _) => Badge(
+          child: IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: () {
+              Navigator.pushNamed(context, CartScreen.routeName);
+            },
           ),
+          value: cart.items.length.toString(),
+          color: Colors.lightGreenAccent,
         ),
       ),
     ],

@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: setDefaultAppBar(),
+      appBar: setDefaultAppBar(context),
       drawer: CustomDrawer(),
       body: SafeArea(
         child: ListView(

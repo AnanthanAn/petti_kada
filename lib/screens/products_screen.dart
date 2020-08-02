@@ -12,15 +12,18 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Product> _products = Provider.of<ProductsProvider>(context).items;
     return Scaffold(
-      appBar: setDefaultAppBar(),
-      body: ListView.builder(
-        itemBuilder: (context, idx) => ProductItem(
-          id: _products[idx].id,
-          title: _products[idx].title,
-          imageURL: _products[idx].imageURL,
-          price: _products[idx].price,
+      appBar: setDefaultAppBar(context),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemBuilder: (context, idx) => ProductItem(
+            id: _products[idx].id,
+            title: _products[idx].title,
+            imageURL: _products[idx].imageURL,
+            price: _products[idx].price,
+          ),
+          itemCount: _products.length,
         ),
-        itemCount: _products.length,
       ),
     );
   }

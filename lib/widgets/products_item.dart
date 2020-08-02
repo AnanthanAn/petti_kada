@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:petti_kada/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,25 +20,35 @@ class ProductItem extends StatefulWidget {
 class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: <Widget>[
-          Column(
-            children: <Widget>[Text(widget.title),
-              Text('₹${widget.price}'),
-              IconButton(icon: Icon(Icons.add_shopping_cart), onPressed: (){
-                Provider.of<CartProvider>(context,listen: false).addItemToCart(widget.id, widget.title, widget.price);
-                print(Provider.of<CartProvider>(context,listen: false).items.length);
-              })
+    return Column(
+      children: <Widget>[
+        Container(
+          child: Row(
+            children: <Widget>[
+              Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(widget.title),
+                  Text('₹${widget.price}'),
+                  IconButton(
+                      icon: Icon(Icons.add_shopping_cart),
+                      onPressed: () {
+                        Provider.of<CartProvider>(context, listen: false)
+                            .addItemToCart(widget.id, widget.title, widget.price);
+                      })
+                ],
+              ),
+              Spacer(),
+              Container(
+                height: 100,
+                child: Image.network(
+                  widget.imageURL,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ],
           ),
-          Spacer(),
-          Container(
-            height: 100,
-            child: Image.network(widget.imageURL),
-          )
-        ],
-      ),
+        ),Divider()
+      ],
     );
   }
 }

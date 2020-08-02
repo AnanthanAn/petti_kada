@@ -9,8 +9,10 @@ class CartProvider with ChangeNotifier {
   }
 
   void addItemToCart(String prodId, String title, double price) {
-    if (_items.containsKey(prodId)) { //checking whether product already in cart
-      _items.update( //updating quantity by 1 if product exists
+    if (_items.containsKey(prodId)) {
+      //checking whether product already in cart
+      _items.update(
+          //updating quantity by 1 if product exists
           prodId,
           (value) => Cart(
               id: value.id,
@@ -18,7 +20,8 @@ class CartProvider with ChangeNotifier {
               quantity: value.quantity + 1,
               price: value.price));
     } else {
-      _items.putIfAbsent( // if product not present in cart adding it
+      _items.putIfAbsent(
+          // if product not present in cart adding it
           prodId,
           () => Cart(
               id: DateTime.now().toString(),
@@ -27,5 +30,14 @@ class CartProvider with ChangeNotifier {
               price: price));
     }
     notifyListeners();
+  }
+
+  double get totalAmount {
+    //calculates total cart amount
+    double total = 0;
+    _items.forEach((key, value) {
+      total += (value.quantity * value.price);
+    });
+    return total;
   }
 }

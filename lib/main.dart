@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:petti_kada/providers/cart_provider.dart';
 import 'package:petti_kada/providers/products_provider.dart';
+import 'package:petti_kada/screens/cart_screen.dart';
 import 'package:petti_kada/screens/home_page.dart';
 import 'package:petti_kada/screens/login_screen.dart';
 import 'package:petti_kada/screens/products_screen.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
             LoginPage.routeName: (context) => LoginPage(),
             RegistrationScreen.routeName: (context) => RegistrationScreen(),
             ProductsScreen.routeName: (context) => ProductsScreen(),
+            CartScreen.routeName: (context) => CartScreen(),
           },
         ),
       );
