@@ -40,4 +40,24 @@ class CartProvider with ChangeNotifier {
     });
     return total;
   }
+
+  void removeFromCart(String prodId) {
+    if (_items.containsKey(prodId)) {
+      //ChecKking whether product is in cart
+      if (_items[prodId].quantity >= 1) {
+        // Checking quantity is >= 1, then decrease quantity by 1
+        _items.update(
+            prodId,
+            (value) => Cart(
+                id: value.id,
+                title: value.title,
+                quantity: value.quantity - 1,
+                price: value.price));
+      } else {
+        //if quantity <= 1 then remove product from cart
+        _items.remove(prodId);
+      }
+    } else {}
+    notifyListeners();
+  }
 }

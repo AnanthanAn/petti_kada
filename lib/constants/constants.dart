@@ -14,7 +14,9 @@ const kTextFieldLabelStyle = TextStyle(
 const kHeaderStyles = TextStyle(
     fontFamily: 'Montserrat', fontWeight: FontWeight.bold, fontSize: 24);
 
-TextStyle kTitleStyles = GoogleFonts.kronaOne(color: Colors.white);
+TextStyle kAppBarTitleStyles = GoogleFonts.kronaOne(color: Colors.white);
+
+TextStyle kTitleStyles = GoogleFonts.kronaOne(color: Colors.blueGrey,fontSize: 20);
 
 AppBar setDefaultAppBar(BuildContext context) {
   return AppBar(
@@ -32,7 +34,7 @@ AppBar setDefaultAppBar(BuildContext context) {
         ),
       ),
     ],
-    title: Text('ShopLift', style: kTitleStyles),
+    title: Text('ShopLift', style: kAppBarTitleStyles),
     backgroundColor: Colors.green,
   );
 }

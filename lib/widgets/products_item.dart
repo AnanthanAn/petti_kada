@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:petti_kada/constants/constants.dart';
 import 'package:petti_kada/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -25,16 +25,38 @@ class _ProductItemState extends State<ProductItem> {
         Container(
           child: Row(
             children: <Widget>[
-              Column(mainAxisAlignment: MainAxisAlignment.center,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text(widget.title),
+                  Text(
+                    widget.title,
+                    style: kTitleStyles,
+                  ),
                   Text('₹${widget.price}'),
-                  IconButton(
-                      icon: Icon(Icons.add_shopping_cart),
-                      onPressed: () {
-                        Provider.of<CartProvider>(context, listen: false)
-                            .addItemToCart(widget.id, widget.title, widget.price);
-                      })
+                  Consumer<CartProvider>(
+                    builder: (_, cart, _2) => cart.items.containsKey(widget.id)
+                        ? Row(
+                          children: <Widget>[
+                            IconButton(icon: Icon(Icons.remove), onPressed: (){
+                              Provider.of<CartProvider>(context, listen: false).removeFromCart(widget.id);
+                            }),
+                            Text('${cart.items[widget.id].quantity}'),
+                            IconButton(icon: Icon(Icons.add), onPressed: (){
+                              Provider.of<CartProvider>(context, listen: false)
+                                  .addItemToCart(
+                                  widget.id, widget.title, widget.price);
+                            }),
+                          ],
+                        )
+                        : IconButton(
+                            icon: Icon(Icons.add_shopping_cart),
+                            onPressed: () {
+                              Provider.of<CartProvider>(context, listen: false)
+                                  .addItemToCart(
+                                      widget.id, widget.title, widget.price);
+                            }),
+                  )
                 ],
               ),
               Spacer(),
@@ -47,7 +69,8 @@ class _ProductItemState extends State<ProductItem> {
               ),
             ],
           ),
-        ),Divider()
+        ),
+        Divider()
       ],
     );
   }

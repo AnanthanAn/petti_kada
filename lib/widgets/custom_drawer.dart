@@ -8,7 +8,7 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-            child: Container(child: Text('Hey There',style: kTitleStyles,)),
+            child: Container(child: Text('Hey There',style: kAppBarTitleStyles,)),
             decoration: BoxDecoration(
               color: Colors.green,
             ),
