@@ -24,7 +24,7 @@ class CartProvider with ChangeNotifier {
           // if product not present in cart adding it
           prodId,
           () => Cart(
-              id: DateTime.now().toString(),
+              id: DateTime.now().toIso8601String(),
               title: title,
               quantity: 1,
               price: price));
@@ -43,7 +43,7 @@ class CartProvider with ChangeNotifier {
 
   void removeFromCart(String prodId) {
     if (_items.containsKey(prodId)) {
-      //ChecKking whether product is in cart
+      //Checking whether product is in cart
       if (_items[prodId].quantity >= 1) {
         // Checking quantity is >= 1, then decrease quantity by 1
         _items.update(

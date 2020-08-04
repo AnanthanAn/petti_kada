@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petti_kada/constants/constants.dart';
 import 'package:petti_kada/providers/cart_provider.dart';
+import 'package:petti_kada/providers/products_provider.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
@@ -13,6 +14,10 @@ class CartScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Chip(label: Text(cart.totalAmount.toString())),
+          RaisedButton(child: Text('Click'),onPressed: (){
+            print(DateTime.now().toIso8601String());
+            ProductsProvider().fetchAndSetProducts();
+          }),
           Expanded(
             child: ListView.builder(
                 itemCount: cart.items.length,

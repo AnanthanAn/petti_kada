@@ -23,11 +23,9 @@ class _ProductItemState extends State<ProductItem> {
     return Column(
       children: <Widget>[
         Container(
-          child: Row(
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     widget.title,
@@ -37,18 +35,25 @@ class _ProductItemState extends State<ProductItem> {
                   Consumer<CartProvider>(
                     builder: (_, cart, _2) => cart.items.containsKey(widget.id)
                         ? Row(
-                          children: <Widget>[
-                            IconButton(icon: Icon(Icons.remove), onPressed: (){
-                              Provider.of<CartProvider>(context, listen: false).removeFromCart(widget.id);
-                            }),
-                            Text('${cart.items[widget.id].quantity}'),
-                            IconButton(icon: Icon(Icons.add), onPressed: (){
-                              Provider.of<CartProvider>(context, listen: false)
-                                  .addItemToCart(
-                                  widget.id, widget.title, widget.price);
-                            }),
-                          ],
-                        )
+                            children: <Widget>[
+                              IconButton(
+                                  icon: Icon(Icons.remove),
+                                  onPressed: () {
+                                    Provider.of<CartProvider>(context,
+                                            listen: false)
+                                        .removeFromCart(widget.id);
+                                  }),
+                              Text('${cart.items[widget.id].quantity}'),
+                              IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    Provider.of<CartProvider>(context,
+                                            listen: false)
+                                        .addItemToCart(widget.id, widget.title,
+                                            widget.price);
+                                  }),
+                            ],
+                          )
                         : IconButton(
                             icon: Icon(Icons.add_shopping_cart),
                             onPressed: () {
@@ -59,9 +64,8 @@ class _ProductItemState extends State<ProductItem> {
                   )
                 ],
               ),
-              Spacer(),
               Container(
-                height: 100,
+                height: 100,width: 150,
                 child: Image.network(
                   widget.imageURL,
                   fit: BoxFit.cover,
