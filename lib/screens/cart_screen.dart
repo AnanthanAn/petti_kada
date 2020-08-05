@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petti_kada/constants/constants.dart';
 import 'package:petti_kada/providers/cart_provider.dart';
-import 'package:petti_kada/providers/products_provider.dart';
+import 'package:petti_kada/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
@@ -16,7 +16,7 @@ class CartScreen extends StatelessWidget {
           Chip(label: Text(cart.totalAmount.toString())),
           RaisedButton(child: Text('Click'),onPressed: (){
             print(DateTime.now().toIso8601String());
-            ProductsProvider().fetchAndSetProducts();
+            Navigator.pushNamed(context, LoginPage.routeName);
           }),
           Expanded(
             child: ListView.builder(

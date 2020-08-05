@@ -10,10 +10,11 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   String _email;
+  String _phone;
   String _password;
   String _confirmPassword;
   String _name;
-  String _flatNo;
+  String _address;
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +80,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       SizedBox(height: 10.0),
                       TextField(
+                        onChanged: (value) {
+                          _phone = value;
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'PHONE',
+                            labelStyle: kTextFieldLabelStyle,
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.green))),
+                        keyboardType: TextInputType.phone,
+                      ),
+                      SizedBox(height: 10.0),
+                      TextField(
                         decoration: InputDecoration(
                           labelText: 'PASSWORD ',
                           labelStyle: kTextFieldLabelStyle,
@@ -102,7 +115,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       TextField(
                         decoration: InputDecoration(
-                          labelText: 'FLAT NO',
+                          labelText: 'ADDRESS',
                           labelStyle: kTextFieldLabelStyle,
                           // hintText: 'EMAIL',
                           // hintStyle: ,
@@ -111,7 +124,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                         ),
                         onChanged: (value) {
-                          _flatNo = value;
+                          _address = value;
                         },
                       ),
                       SizedBox(height: 50.0),

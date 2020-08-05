@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => HomePage(),
             LoginPage.routeName: (context) => LoginPage(),
+            HomePage.routeName : (context) => HomePage(),
             RegistrationScreen.routeName: (context) => RegistrationScreen(),
             ProductsScreen.routeName: (context) => ProductsScreen(),
             CartScreen.routeName: (context) => CartScreen(),
