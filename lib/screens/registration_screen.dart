@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petti_kada/constants/constants.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  static String routeName = 'regisration_screen';
+  static String routeName = '/regisration_screen';
 
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
@@ -137,7 +138,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             elevation: 7.0,
                             child: GestureDetector(
                               onTap: () async {
-                               //TODO
+                                FirebaseAuth.instance
+                                    .createUserWithEmailAndPassword(
+                                        email: _email, password: _password);
                               },
                               child: Center(
                                 child: Text('SIGNUP', style: kButtonTextStyle),

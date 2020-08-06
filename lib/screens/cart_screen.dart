@@ -16,7 +16,8 @@ class CartScreen extends StatelessWidget {
           Chip(label: Text(cart.totalAmount.toString())),
           RaisedButton(child: Text('Click'),onPressed: (){
             print(DateTime.now().toIso8601String());
-            Navigator.pushNamed(context, LoginPage.routeName);
+            cart.placeOrder();
+            //Navigator.pushNamed(context, LoginPage.routeName);
           }),
           Expanded(
             child: ListView.builder(
