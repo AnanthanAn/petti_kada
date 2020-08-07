@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 
 class ProductsScreen extends StatefulWidget {
   static String routeName = '/products-screen';
+  final String catId;
+  ProductsScreen(this.catId);
 
   @override
   _ProductsScreenState createState() => _ProductsScreenState();
@@ -16,7 +18,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   var _isLoading = false;
   @override
   void initState() {
-    _refreshPage(context);
+    _refreshPage();
     super.initState();
   }
 
@@ -30,7 +32,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
               child: CircularProgressIndicator(),
             )
           : RefreshIndicator(
-              onRefresh: () => _refreshPage(context),
+              onRefresh: () => _refreshPage(),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.builder(
@@ -47,17 +49,15 @@ class _ProductsScreenState extends State<ProductsScreen> {
     );
   }
 
-  Future<void> _refreshPage(BuildContext context) async {
+  Future<void> _refreshPage() async {
     setState(() {
       _isLoading = true;
     });
     var result = await Provider.of<ProductsProvider>(context, listen: false)
-        .fetchAndSetProducts();
+        .fetchAndSetProductsByCatId(widget.catId);
     setState(() {
       _isLoading = false;
     });
     return result;
   }
 }
-
-

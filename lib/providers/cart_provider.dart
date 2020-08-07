@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:petti_kada/helpers/firebase_helper.dart';
 import 'package:petti_kada/models/cart.dart';
 
 class CartProvider with ChangeNotifier {
@@ -61,14 +59,5 @@ class CartProvider with ChangeNotifier {
       }
     } else {}
     notifyListeners();
-  }
-
-  Future<void> placeOrder() async{
-    var userId = await FirebaseHelper.getUserId();
-    print(_items);
-    await Firestore.instance.collection('orders').document(userId).setData({
-      'title' : 'Demo tiltle'
-    }
-    );
   }
 }

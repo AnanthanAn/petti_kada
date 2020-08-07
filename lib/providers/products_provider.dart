@@ -13,9 +13,9 @@ class ProductsProvider with ChangeNotifier {
     return _items.firstWhere((element) => element.id == pId);
   }
 
-  Future<void> fetchAndSetProducts() async {
+  Future<void> fetchAndSetProductsByCatId( String catId) async {
     _items.clear();
-    var snap = await Firestore.instance.collection('products').getDocuments();
+    var snap = await Firestore.instance.collection('products').where('catId',isEqualTo: catId).getDocuments();
     snap.documents.forEach((element) {
       _items.add(Product(
           id: element.data['id'],
@@ -26,4 +26,5 @@ class ProductsProvider with ChangeNotifier {
     });
     notifyListeners();
   }
+  
 }

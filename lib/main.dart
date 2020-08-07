@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:petti_kada/providers/cart_provider.dart';
+import 'package:petti_kada/providers/order_provider.dart';
 import 'package:petti_kada/providers/products_provider.dart';
 import 'package:petti_kada/screens/cart_screen.dart';
 import 'package:petti_kada/screens/home_page.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       MultiProvider(providers: [
         ChangeNotifierProvider(create: (ctx) => ProductsProvider()),
         ChangeNotifierProvider(create: (ctx) => CartProvider()),
+        ChangeNotifierProvider(create: (ctx) => OrderProvider(),)
       ],
         child: MaterialApp(
           theme: ThemeData(
@@ -34,7 +36,6 @@ class MyApp extends StatelessWidget {
             LoginPage.routeName: (context) => LoginPage(),
             HomePage.routeName : (context) => HomePage(),
             RegistrationScreen.routeName: (context) => RegistrationScreen(),
-            ProductsScreen.routeName: (context) => ProductsScreen(),
             CartScreen.routeName: (context) => CartScreen(),
           },
         ),
