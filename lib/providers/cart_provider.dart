@@ -41,7 +41,7 @@ class CartProvider with ChangeNotifier {
     return total;
   }
 
-  void removeFromCart(String prodId) {
+  void decreaseQuantityCart(String prodId) {
     if (_items.containsKey(prodId)) {
       //Checking whether product is in cart
       if (_items[prodId].quantity >= 1) {
@@ -58,6 +58,11 @@ class CartProvider with ChangeNotifier {
         _items.remove(prodId);
       }
     } else {}
+    notifyListeners();
+  }
+
+  void clearCart(){
+    _items.clear();
     notifyListeners();
   }
 }

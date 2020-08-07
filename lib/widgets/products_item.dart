@@ -41,7 +41,7 @@ class _ProductItemState extends State<ProductItem> {
                                   onPressed: () {
                                     Provider.of<CartProvider>(context,
                                             listen: false)
-                                        .removeFromCart(widget.id);
+                                        .decreaseQuantityCart(widget.id);
                                   }),
                               Text('${cart.items[widget.id].quantity}'),
                               IconButton(
