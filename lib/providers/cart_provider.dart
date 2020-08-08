@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:petti_kada/models/cart.dart';
 
 class CartProvider with ChangeNotifier {
+  var extraCharges = 50.0;
   Map<String, Cart> _items = {};
 
   Map<String, Cart> get items {
@@ -63,6 +64,13 @@ class CartProvider with ChangeNotifier {
 
   void clearCart(){
     _items.clear();
+    notifyListeners();
+  }
+
+  void removeProductFromCart(String pId){
+    if(_items.containsKey(pId)){
+      _items.remove(pId);
+    }
     notifyListeners();
   }
 }

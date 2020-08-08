@@ -7,7 +7,6 @@ import 'package:petti_kada/providers/products_provider.dart';
 import 'package:petti_kada/screens/cart_screen.dart';
 import 'package:petti_kada/screens/home_page.dart';
 import 'package:petti_kada/screens/login_screen.dart';
-import 'package:petti_kada/screens/products_screen.dart';
 import 'package:petti_kada/screens/registration_screen.dart';
 import 'package:provider/provider.dart';
 

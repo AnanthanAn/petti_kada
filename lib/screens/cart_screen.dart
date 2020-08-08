@@ -13,23 +13,37 @@ class CartScreen extends StatelessWidget {
       appBar: setDefaultAppBar(context),
       body: Column(
         children: <Widget>[
-          Chip(label: Text(cart.totalAmount.toString())),
-          RaisedButton(child: Text('Click'),onPressed: (){
-            print(DateTime.now().toIso8601String());
-            Provider.of<OrderProvider>(context,listen: false).placeOrder(cart.totalAmount,cart.items.values.toList());
-            //Navigator.pushNamed(context, LoginPage.routeName);
-          }),
+          Card(
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text('Total'),
+                Chip(label: Text(cart.totalAmount.toString())),
+              ],
+            ),
+          ),
           Expanded(
             child: ListView.builder(
                 itemCount: cart.items.length,
-                itemBuilder: (ctx, idx) => ListTile(
-                      title: Text(cart.items.values.toList()[idx].title),
-                      trailing: Text(
-                          cart.items.values.toList()[idx].quantity.toString()),
-                    )),
+                itemBuilder: (ctx, idx) => Dismissible(key: UniqueKey(),direction: DismissDirection.endToStart,
+                  onDismissed: (_){
+                    cart.removeProductFromCart(cart.items.keys.toList()[idx]);
+                  },
+                  child: ListTile(
+                        title: Text(cart.items.values.toList()[idx].title),
+                        trailing: Text(
+                            cart.items.values.toList()[idx].quantity.toString()),
+                      ),
+                )),
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Provider.of<OrderProvider>(context, listen: false)
+                .placeOrder(cart.totalAmount, cart.items.values.toList());
+          },
+          label: Text('Place Order')),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

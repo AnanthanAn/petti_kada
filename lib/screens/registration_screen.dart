@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petti_kada/constants/constants.dart';
+import 'package:petti_kada/helpers/firebase_helper.dart';
+import 'package:petti_kada/screens/home_page.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String routeName = '/regisration_screen';
@@ -129,24 +130,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         },
                       ),
                       SizedBox(height: 50.0),
-                      Container(
-                          height: 40.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(20.0),
-                            shadowColor: Colors.greenAccent,
-                            color: Colors.green,
-                            elevation: 7.0,
-                            child: GestureDetector(
-                              onTap: () async {
-                                FirebaseAuth.instance
-                                    .createUserWithEmailAndPassword(
-                                        email: _email, password: _password);
-                              },
+                      GestureDetector(
+                        onTap: () async{
+                         await FirebaseHelper.signUpNewUser(
+                              _email, _password, _name, _phone, _address);
+                         Navigator.pushReplacementNamed(context, HomePage.routeName);
+                        },
+                        child: Container(
+                            height: 40.0,
+                            child: Material(
+                              borderRadius: BorderRadius.circular(20.0),
+                              shadowColor: Colors.greenAccent,
+                              color: Colors.green,
+                              elevation: 7.0,
                               child: Center(
                                 child: Text('SIGNUP', style: kButtonTextStyle),
                               ),
-                            ),
-                          )),
+                            )),
+                      ),
                       SizedBox(height: 20.0),
                       Container(
                         height: 40.0,
