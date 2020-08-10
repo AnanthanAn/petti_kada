@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:petti_kada/constants/constants.dart';
 import 'package:petti_kada/helpers/firebase_helper.dart';
-import 'package:petti_kada/screens/home_page.dart';
 import 'package:petti_kada/screens/registration_screen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,20 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   String _email;
   String _password;
   var _isLoading = false;
-  //Todo : implement user auth without navigating to login every time
-
-//  Future<FirebaseUser> getUser()async{
-//    FirebaseUser user = await _auth.currentUser();
-//    return user;
-//
-//  }
-
-  @override
-  void initState() {
-    super.initState();
-
-//    getUser() != null ? HomePage() : LoginPage();
-  }
+  GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -71,102 +57,125 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                       padding:
                           EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
-                      child: Column(
-                        children: <Widget>[
-                          TextField(
-                            decoration: InputDecoration(
-                              labelText: 'EMAIL',
-                              labelStyle: kTextFieldLabelStyle,
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green),
-                              ),
-                            ),
-                            onChanged: (value) {
-                              _email = value;
-                            },
-                          ),
-                          SizedBox(height: 20.0),
-                          TextField(
-                            decoration: InputDecoration(
-                              labelText: 'PASSWORD',
-                              labelStyle: kTextFieldLabelStyle,
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green),
-                              ),
-                            ),
-                            obscureText: true,
-                            onChanged: (value) {
-                              _password = value;
-                            },
-                          ),
-                          SizedBox(height: 5.0),
-                          Container(
-                            alignment: Alignment(1.0, 0.0),
-                            padding: EdgeInsets.only(top: 15.0, left: 20.0),
-                            child: InkWell(
-                              child: GestureDetector(
-                                onTap: () {
-                                  //TODo
-                                },
-                                child: Text(
-                                  'Forgot Password',
-                                  style: TextStyle(
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Montserrat',
-                                      decoration: TextDecoration.underline),
+                      child: Form(key: _formKey,
+                        child: Expanded(
+                          child: Column(
+                            children: <Widget>[
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  labelText: 'EMAIL',
+                                  labelStyle: kTextFieldLabelStyle,
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.green),
+                                  ),
                                 ),
+                                validator: (value) {
+                                  if (value.isEmpty || !value.contains('@')) {
+                                    return 'Enter a valid email';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _email = value;
+                                },
                               ),
-                            ),
-                          ),
-                          SizedBox(height: 40.0),
-                          GestureDetector(
-                            onTap: () async {
-                              await FirebaseHelper.signIn(_email, _password);
-                            },
-                            child: Container(
-                              height: 40.0,
-                              child: Material(
-                                borderRadius: BorderRadius.circular(20.0),
-                                shadowColor: Colors.greenAccent,
-                                color: Colors.green,
-                                elevation: 7.0,
-                                child: Center(
-                                  child: Text(
-                                    'LOGIN',
-                                    style: kButtonTextStyle,
+                              SizedBox(height: 20.0),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  labelText: 'PASSWORD',
+                                  labelStyle: kTextFieldLabelStyle,
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.green),
+                                  ),
+                                ),
+                                obscureText: true,
+                                validator: (value) {
+                                  if (value.isEmpty || value.length < 6) {
+                                    return 'Enter a valid password';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _password = value;
+                                },
+                              ),
+                              SizedBox(height: 5.0),
+                              Container(
+                                alignment: Alignment(1.0, 0.0),
+                                padding: EdgeInsets.only(top: 15.0, left: 20.0),
+                                child: InkWell(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      FirebaseHelper.forgotPassword(_email);
+                                    },
+                                    child: Text(
+                                      'Forgot Password',
+                                      style: TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Montserrat',
+                                          decoration: TextDecoration.underline),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                          SizedBox(height: 20.0),
-                          Container(
-                            height: 40.0,
-                            color: Colors.transparent,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.black,
-                                      style: BorderStyle.solid,
-                                      width: 1.0),
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  SizedBox(width: 10.0),
-                                  Center(
-                                    child: Text('Log in with facebook',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'Montserrat')),
-                                  )
-                                ],
+                              SizedBox(height: 40.0),
+                              GestureDetector(
+                                onTap: () async {
+                                  if(!_formKey.currentState.validate()){
+                                    return;
+                                  }
+                                  _formKey.currentState.save();
+                                  BotToast.showLoading();
+                                  await FirebaseHelper.signIn(
+                                      _email, _password);
+                                },
+                                child: Container(
+                                  height: 40.0,
+                                  child: Material(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    shadowColor: Colors.greenAccent,
+                                    color: Colors.green,
+                                    elevation: 7.0,
+                                    child: Center(
+                                      child: Text(
+                                        'LOGIN',
+                                        style: kButtonTextStyle,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          )
-                        ],
+                              SizedBox(height: 20.0),
+                              Container(
+                                height: 40.0,
+                                color: Colors.transparent,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          style: BorderStyle.solid,
+                                          width: 1.0),
+                                      color: Colors.transparent,
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      SizedBox(width: 10.0),
+                                      Center(
+                                        child: Text('Log in with facebook',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'Montserrat')),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       )),
                   SizedBox(height: 15.0),
                   Row(
@@ -174,7 +183,6 @@ class _LoginPageState extends State<LoginPage> {
                     children: <Widget>[
                       Text(
                         'New to ShopLift ?',
-                        style: TextStyle(fontFamily: 'Montserrat'),
                       ),
                       SizedBox(width: 5.0),
                       InkWell(

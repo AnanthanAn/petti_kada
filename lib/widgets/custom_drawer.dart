@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petti_kada/constants/constants.dart';
 import 'package:petti_kada/helpers/firebase_helper.dart';
+import 'package:petti_kada/screens/orders_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -28,7 +29,9 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.credit_card),
             title: Text('My Orders'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, OrdersScreen.routeName);
+            },
           ),
           ListTile(
             leading: Icon(Icons.people),

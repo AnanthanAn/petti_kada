@@ -40,4 +40,8 @@ class FirebaseHelper {
   static Future<void> signOut() async{
     FirebaseAuth.instance.signOut();
   }
+
+  static Future<void> forgotPassword(String email) async{
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
 }

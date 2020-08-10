@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:petti_kada/constants/constants.dart';
 import 'package:petti_kada/helpers/firebase_helper.dart';
@@ -17,43 +18,62 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String _confirmPassword;
   String _name;
   String _address;
+  GlobalKey<FormState> _formkey = GlobalKey();
+  TextEditingController _passController;
+  TextEditingController _confirmPassController;
+
+  @override
+  void initState() {
+    _passController = TextEditingController();
+    _confirmPassController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _passController.dispose();
+    _confirmPassController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
-                      child: Text(
-                        'Signup',
-                        style: TextStyle(
-                            fontSize: 80.0, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(260.0, 125.0, 0.0, 0.0),
-                      child: Text(
-                        '.',
-                        style: TextStyle(
-                            fontSize: 80.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green),
-                      ),
-                    )
-                  ],
+        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+            Widget>[
+          Container(
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
+                  child: Text(
+                    'Signup',
+                    style:
+                        TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              Container(
-                  padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
+                Container(
+                  padding: EdgeInsets.fromLTRB(260.0, 125.0, 0.0, 0.0),
+                  child: Text(
+                    '.',
+                    style: TextStyle(
+                        fontSize: 80.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+              padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
+              child: Form(
+                key: _formkey,
+                child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      TextField(
+                      TextFormField(
                         decoration: InputDecoration(
                           labelText: 'NAME',
                           labelStyle: kTextFieldLabelStyle,
@@ -63,14 +83,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             borderSide: BorderSide(color: Colors.green),
                           ),
                         ),
-                        onChanged: (value) {
+                        validator: (value) {
+                          if (value.isEmpty || value.length < 3)
+                            return 'Enter a valid username';
+                          return null;
+                        },
+                        onSaved: (value) {
                           _name = value;
                         },
                       ),
-                      TextField(
-                        onChanged: (value) {
-                          _email = value;
-                        },
+                      TextFormField(
                         decoration: InputDecoration(
                             labelText: 'EMAIL',
                             labelStyle: kTextFieldLabelStyle,
@@ -79,21 +101,35 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.green))),
                         keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value.isEmpty || !value.contains('@'))
+                            return 'Enter a valid email';
+                          return null;
+                        },
+                        onSaved: (value) {
+                          _email = value;
+                        },
                       ),
                       SizedBox(height: 10.0),
-                      TextField(
-                        onChanged: (value) {
-                          _phone = value;
-                        },
+                      TextFormField(
                         decoration: InputDecoration(
                             labelText: 'PHONE',
                             labelStyle: kTextFieldLabelStyle,
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.green))),
                         keyboardType: TextInputType.phone,
+                        validator: (value) {
+                          if (value.isEmpty ||
+                              value.length < 10 ||
+                              value.length > 10) return 'Enter a valid phone';
+                          return null;
+                        },
+                        onSaved: (value) {
+                          _phone = value;
+                        },
                       ),
                       SizedBox(height: 10.0),
-                      TextField(
+                      TextFormField(controller: _passController,
                         decoration: InputDecoration(
                           labelText: 'PASSWORD ',
                           labelStyle: kTextFieldLabelStyle,
@@ -102,20 +138,33 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                         ),
                         obscureText: true,
-                        onChanged: (value) {
+                        validator: (value) {
+                          if (value.isEmpty || value.length < 6)
+                            return 'Enter a valid password';
+                          return null;
+                        },
+                        onSaved: (value) {
                           _password = value;
                         },
                       ),
                       SizedBox(height: 10.0),
-                      TextField(
+                      TextFormField(controller: _confirmPassController,
                         decoration: InputDecoration(
                             labelText: 'CONFIRM PASSWORD ',
                             labelStyle: kTextFieldLabelStyle,
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.green))),
                         obscureText: true,
+                        validator: (value) {
+                          if (value.isEmpty || value.length < 6 || _passController.value.text.isEmpty || value != _passController.value.text)
+                            return 'Enter a valid username';
+                          return null;
+                        },
+                        onSaved: (value) {
+                          _confirmPassword = value;
+                        },
                       ),
-                      TextField(
+                      TextFormField(
                         decoration: InputDecoration(
                           labelText: 'ADDRESS',
                           labelStyle: kTextFieldLabelStyle,
@@ -125,16 +174,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             borderSide: BorderSide(color: Colors.green),
                           ),
                         ),
-                        onChanged: (value) {
+                        validator: (value) {
+                          if (value.isEmpty || value.length < 6)
+                            return 'Enter a valid Address';
+                          return null;
+                        },
+                        onSaved: (value) {
                           _address = value;
                         },
                       ),
                       SizedBox(height: 50.0),
                       GestureDetector(
-                        onTap: () async{
-                         await FirebaseHelper.signUpNewUser(
+                        onTap: () async {
+                          if(!_formkey.currentState.validate()){
+                            return;
+                          }
+                          _formkey.currentState.save();
+                          BotToast.showLoading();
+                          await FirebaseHelper.signUpNewUser(
                               _email, _password, _name, _phone, _address);
-                         Navigator.pushReplacementNamed(context, HomePage.routeName);
+                          Navigator.pushReplacementNamed(
+                              context, HomePage.routeName);
                         },
                         child: Container(
                             height: 40.0,
@@ -174,7 +234,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                     ],
-                  )),
-            ]));
+                  ),
+                ),
+              )),
+        ]));
   }
 }
