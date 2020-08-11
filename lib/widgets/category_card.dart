@@ -32,7 +32,8 @@ class CatCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Image.network(imageURL),
+                  FadeInImage.assetNetwork(placeholder: 'images/placeholder.png',
+                      image : imageURL),
                   Text(
                     titleLabel,
                     style: kTextFieldLabelStyle,

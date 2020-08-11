@@ -20,8 +20,8 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Card(
               child: Container(
-                child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/shoplift-c03d5.appspot.com/o/alvaro-serrano--kr8XPYuSI8-unsplash.jpg?alt=media&token=240dde38-bc42-4f6e-9f86-be0e50971e94'),
+                child: FadeInImage.assetNetwork(placeholder: 'images/placeholder.png',
+                    image : 'https://firebasestorage.googleapis.com/v0/b/shoplift-c03d5.appspot.com/o/alvaro-serrano--kr8XPYuSI8-unsplash.jpg?alt=media&token=240dde38-bc42-4f6e-9f86-be0e50971e94'),
               ),
             ),
             Padding(

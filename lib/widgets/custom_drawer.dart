@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:petti_kada/constants/constants.dart';
 import 'package:petti_kada/helpers/firebase_helper.dart';
+import 'package:petti_kada/screens/cart_screen.dart';
+import 'package:petti_kada/screens/home_page.dart';
 import 'package:petti_kada/screens/orders_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -10,7 +12,7 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-            child: Container(child: Text('Hey There',style: kAppBarTitleStyles,)),
+            child: Container(child: Text('Hey There...',style: kAppBarTitleStyles,)),
             decoration: BoxDecoration(
               color: Colors.green,
             ),
@@ -19,12 +21,16 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: Text('Home'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacementNamed(context, HomePage.routeName);
+            },
           ),
           ListTile(
             leading: Icon(Icons.shopping_cart),
             title: Text('My Cart'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, CartScreen.routeName);
+            },
           ),
           ListTile(
             leading: Icon(Icons.credit_card),
@@ -36,7 +42,9 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.people),
             title: Text('Contact Us'),
-            onTap: () {},
+            onTap: () {
+              showAboutDialog(context: context,applicationName: 'ShopLyft',applicationVersion: '1.0',);
+            },
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),

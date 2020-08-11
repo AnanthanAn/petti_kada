@@ -129,6 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                   BotToast.showLoading();
                                   await FirebaseHelper.signIn(
                                       _email, _password);
+                                  BotToast.closeAllLoading();
                                 },
                                 child: Container(
                                   height: 40.0,
