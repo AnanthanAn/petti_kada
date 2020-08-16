@@ -38,6 +38,7 @@ class OrderProvider with ChangeNotifier {
     var orders = await Firestore.instance
         .collection('orders')
         .where('userId', isEqualTo: uid)
+        .orderBy('timestamp')
         .getDocuments();
     orders.documents.forEach((element) {
       var orderId = element.documentID;

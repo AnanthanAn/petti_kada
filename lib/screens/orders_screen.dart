@@ -16,7 +16,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Widget build(BuildContext context) {
     var orders = Provider.of<OrderProvider>(context, listen: false);
     return Scaffold(
-      appBar: setDefaultAppBar(context),
+      appBar: AppBar(title: Text('My Orders'),),
       body: FutureBuilder(
           future: orders.fetchOrdersForUser(),
           builder: (ctx, dataSnap) {

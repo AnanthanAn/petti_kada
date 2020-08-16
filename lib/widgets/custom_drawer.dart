@@ -52,7 +52,8 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               FirebaseHelper.signOut();
             },
-          ),
+            
+          )
         ],
       ),
     );

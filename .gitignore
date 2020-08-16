@@ -41,3 +41,10 @@ app.*.map.json
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+# Node modules -- 16 -08 -2020
+functions/node_modules
+
+
+#Firebase Servicses
+android/app/google-services.json
