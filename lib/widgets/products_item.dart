@@ -20,9 +20,10 @@ class ProductItem extends StatefulWidget {
 class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
+    return Card(elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 4,left: 8,top: 4,bottom: 4),
+        child: Container(
           child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Column(
@@ -54,13 +55,18 @@ class _ProductItemState extends State<ProductItem> {
                                   }),
                             ],
                           )
-                        : IconButton(
-                            icon: Icon(Icons.add_shopping_cart),
-                            onPressed: () {
-                              Provider.of<CartProvider>(context, listen: false)
-                                  .addItemToCart(
-                                      widget.id, widget.title, widget.price);
-                            }),
+                        : Row(
+                          children: [
+                            Text('Add to cart'),
+                            IconButton(
+                                icon: Icon(Icons.add_shopping_cart),
+                                onPressed: () {
+                                  Provider.of<CartProvider>(context, listen: false)
+                                      .addItemToCart(
+                                          widget.id, widget.title, widget.price);
+                                }),
+                          ],
+                        ),
                   )
                 ],
               ),
@@ -74,8 +80,7 @@ class _ProductItemState extends State<ProductItem> {
             ],
           ),
         ),
-        Divider()
-      ],
+      ),
     );
   }
 }

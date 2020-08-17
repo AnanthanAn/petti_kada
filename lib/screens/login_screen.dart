@@ -57,7 +57,8 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                       padding:
                           EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
-                      child: Form(key: _formKey,
+                      child: Form(
+                        key: _formKey,
                         child: Expanded(
                           child: Column(
                             children: <Widget>[
@@ -122,13 +123,18 @@ class _LoginPageState extends State<LoginPage> {
                               SizedBox(height: 40.0),
                               GestureDetector(
                                 onTap: () async {
-                                  if(!_formKey.currentState.validate()){
+                                  if (!_formKey.currentState.validate()) {
                                     return;
                                   }
                                   _formKey.currentState.save();
                                   BotToast.showLoading();
-                                  await FirebaseHelper.signIn(
-                                      _email, _password);
+                                  try {
+                                    await FirebaseHelper.signIn(
+                                        _email, _password);
+                                  } catch (e) {
+                                    _showErrorDialog(context, e.toString());
+                                  }
+
                                   BotToast.closeAllLoading();
                                 },
                                 child: Container(
@@ -204,5 +210,22 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ],
               ));
+  }
+
+  void _showErrorDialog(BuildContext context, String errorText) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Oops...'),
+        content: Text(errorText),
+        actions: [
+          FlatButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: Text('OK'))
+        ],
+      ),
+    );
   }
 }

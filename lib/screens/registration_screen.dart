@@ -191,10 +191,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           }
                           _formkey.currentState.save();
                           BotToast.showLoading();
-                          await FirebaseHelper.signUpNewUser(
-                              _email, _password, _name, _phone, _address);
-                          Navigator.pushReplacementNamed(
-                              context, HomePage.routeName);
+                          try{
+                            await FirebaseHelper.signUpNewUser(
+                                _email, _password, _name, _phone, _address);
+                            Navigator.pushReplacementNamed(
+                                context, HomePage.routeName);
+                          }catch(e){
+                            _showErrorDialog(context, e.toString());
+                          }
+
                         },
                         child: Container(
                             height: 40.0,
@@ -227,8 +232,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             child: Center(
                               child: Text('Go Back',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Montserrat')),
+                                      fontWeight: FontWeight.bold,)),
                             ),
                           ),
                         ),
@@ -238,5 +242,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               )),
         ]));
+  }
+  void _showErrorDialog(BuildContext context, String errorText) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Oops...'),
+        content: Text(errorText),
+        actions: [
+          FlatButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: Text('OK'))
+        ],
+      ),
+    );
   }
 }

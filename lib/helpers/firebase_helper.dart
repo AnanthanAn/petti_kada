@@ -28,13 +28,19 @@ class FirebaseHelper {
       });
     }catch(e){
       print('Error in authentication --------------- ${e.toString()}');
+      throw e.toString();
     }
 
   }
 
   static Future<void> signIn(String email, String password) async{
-    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-    print(getUserId());
+    try{
+     await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      print(getUserId());
+    }catch(e){
+      throw e.toString();
+    }
+
   }
 
   static Future<void> signOut() async{

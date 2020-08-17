@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:petti_kada/screens/cart_screen.dart';
+import '../screens/cart_screen.dart';
 import '../providers/cart_provider.dart';
 import '../widgets/badge.dart';
 import 'package:provider/provider.dart';
 
-const kButtonTextStyle = TextStyle(
-    color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Montserrat');
+TextStyle kButtonTextStyle = GoogleFonts.kronaOne(
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+);
 
-const kTextFieldLabelStyle = TextStyle(
-    fontFamily: 'Montserrat', fontWeight: FontWeight.bold, color: Colors.grey);
+TextStyle kTextFieldLabelStyle =
+    GoogleFonts.kronaOne(fontWeight: FontWeight.bold, color: Colors.grey);
 
 TextStyle kHeaderStyles = GoogleFonts.kronaOne(
-     fontWeight: FontWeight.bold, fontSize: 24,color: Colors.blueGrey);
+    fontWeight: FontWeight.bold, fontSize: 24, color: Colors.blueGrey);
 
 TextStyle kAppBarTitleStyles = GoogleFonts.kronaOne(color: Colors.white);
 
-TextStyle kTitleStyles = GoogleFonts.kronaOne(color: Colors.blueGrey,fontSize: 20);
+TextStyle kTitleStyles =
+    GoogleFonts.kronaOne(color: Colors.blueGrey, fontSize: 20);
 
 AppBar setDefaultAppBar(BuildContext context) {
   return AppBar(

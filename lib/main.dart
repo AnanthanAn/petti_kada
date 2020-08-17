@@ -14,12 +14,14 @@ import 'package:provider/provider.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async{
+  //Add this line else you will get error
   WidgetsFlutterBinding.ensureInitialized();
+  //OneSignal Push Notification
   //Remove this method to stop OneSignal Debugging
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
   OneSignal.shared.init(
-      "68b3c9a5-359f-4155-8cd7-a25ca03656da",
+      "68b3c9a5-359f-4155-8cd7-a25ca03656da", //add your own OneSignal AppID
       iOSSettings: {
         OSiOSSettings.autoPrompt: false,
         OSiOSSettings.inAppLaunchUrl: false
